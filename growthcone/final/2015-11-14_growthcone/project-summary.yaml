@@ -1,0 +1,2017 @@
+date: '2015-11-14 20:11:04.602173'
+upload: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/final
+bcbio_system: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy/bcbio_system.yaml
+samples:
+- description: BC5_run3
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: ACCTCA
+    barcode_id: BC5
+    compartment: growthcone
+    half_amplified: 'yes'
+    insert_size: 335
+    sort_date: Feb15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '49'
+      5'-3' bias: 2.58
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.698
+      Fragment Length Mean: 100.0
+      Genes Detected: 0
+      Intergenic Rate: 0.133
+      Intronic Rate: 0.16899999999999998
+      Mapped: 2372928
+      Mapped reads: '2637833'
+      Mapped reads pct: 77.9949%
+      Mapping Rate: 0.7612482411841057
+      Mean Per Base Cov.: 0
+      Median insert size: '182'
+      Name: BC5_run3
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '3382059'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '24388'
+      rRNA_rate: '0.0311074602802'
+- description: BC12_run3
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GAGTCA
+    barcode_id: BC12
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 325
+    sort_date: Oct14
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '50'
+      5'-3' bias: 0.97
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.595
+      Fragment Length Mean: 90.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1883
+      Intronic Rate: 0.2167
+      Mapped: 8493435
+      Mapped reads: '8818433'
+      Mapped reads pct: 83.1893%
+      Mapping Rate: 0.8265763633067161
+      Mean Per Base Cov.: 0
+      Median insert size: '243'
+      Name: BC12_run3
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '10600437'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '32621'
+      rRNA_rate: '0.0125433640256'
+- description: BC5_run1
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: ACCTCA
+    barcode_id: BC5
+    compartment: growthcone
+    half_amplified: 'yes'
+    insert_size: 335
+    sort_date: Feb15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '49'
+      5'-3' bias: 2.39
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6978
+      Fragment Length Mean: 90.0
+      Genes Detected: 0
+      Intergenic Rate: 0.13390000000000002
+      Intronic Rate: 0.16829999999999998
+      Mapped: 3369341
+      Mapped reads: '3742540'
+      Mapped reads pct: 77.4241%
+      Mapping Rate: 0.7553526191426304
+      Mean Per Base Cov.: 0
+      Median insert size: '182'
+      Name: BC5_run1
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '4833819'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '35037'
+      rRNA_rate: '0.0314794449656'
+- description: BC6_run3
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GTGCTT
+    barcode_id: BC6
+    compartment: growthcone
+    half_amplified: 'yes'
+    insert_size: NA
+    sort_date: Jun15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '46'
+      5'-3' bias: .nan
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.642
+      Fragment Length Mean: 0.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1418
+      Intronic Rate: 0.2162
+      Mapped: 335189
+      Mapped reads: '363037'
+      Mapped reads pct: 74.9095%
+      Mapping Rate: 0.7337987591563664
+      Mean Per Base Cov.: 0
+      Median insert size: '136'
+      Name: BC6_run3
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '484634'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '3175'
+      rRNA_rate: '0.0303848104658'
+- description: BC16_run3
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: TTGGCA
+    barcode_id: BC16
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 300
+    sort_date: Feb15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '44'
+      5'-3' bias: 1.16
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6182
+      Fragment Length Mean: 85.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1747
+      Intronic Rate: 0.2071
+      Mapped: 18951193
+      Mapped reads: '19857418'
+      Mapped reads pct: 97.6319%
+      Mapping Rate: 0.9752150921476507
+      Mean Per Base Cov.: 0
+      Median insert size: '119'
+      Name: BC16_run3
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '20339059'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '195520'
+      rRNA_rate: '0.0329222430905'
+- description: BC8_run2
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GTCGTA
+    barcode_id: BC8
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 350
+    sort_date: Jun15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '49'
+      5'-3' bias: 0.99
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6726000000000001
+      Fragment Length Mean: 77.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1186
+      Intronic Rate: 0.2087
+      Mapped: 4331056
+      Mapped reads: '4542354'
+      Mapped reads pct: 96.1502%
+      Mapping Rate: 0.9596995654041975
+      Mean Per Base Cov.: 0
+      Median insert size: '261'
+      Name: BC8_run2
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '4724227'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '15068'
+      rRNA_rate: '0.0101743096655'
+- description: BC6_run1
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GTGCTT
+    barcode_id: BC6
+    compartment: growthcone
+    half_amplified: 'yes'
+    insert_size: NA
+    sort_date: Jun15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '45'
+      5'-3' bias: .nan
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6413
+      Fragment Length Mean: 38.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1416
+      Intronic Rate: 0.21710000000000002
+      Mapped: 2194176
+      Mapped reads: '2379007'
+      Mapped reads pct: 73.9082%
+      Mapping Rate: 0.723186961793808
+      Mean Per Base Cov.: 0
+      Median insert size: '136'
+      Name: BC6_run1
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '3218868'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '21331'
+      rRNA_rate: '0.0313327624271'
+- description: BC7_run2
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: AAGCCT
+    barcode_id: BC7
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: 345
+    sort_date: Jun15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '48'
+      5'-3' bias: 0.65
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6365
+      Fragment Length Mean: 99.0
+      Genes Detected: 0
+      Intergenic Rate: 0.13720000000000002
+      Intronic Rate: 0.2263
+      Mapped: 6435247
+      Mapped reads: '7008368'
+      Mapped reads pct: 94.298%
+      Mapping Rate: 0.9382153161598652
+      Mean Per Base Cov.: 0
+      Median insert size: '192'
+      Name: BC7_run2
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '7432151'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '61575'
+      rRNA_rate: '0.0312591537412'
+- description: BC8_run3
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GTCGTA
+    barcode_id: BC8
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 350
+    sort_date: Jun15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '49'
+      5'-3' bias: 0.96
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6696
+      Fragment Length Mean: 101.0
+      Genes Detected: 0
+      Intergenic Rate: 0.12140000000000001
+      Intronic Rate: 0.209
+      Mapped: 9839863
+      Mapped reads: '10318605'
+      Mapped reads pct: 95.9744%
+      Mapping Rate: 0.957868389971173
+      Mean Per Base Cov.: 0
+      Median insert size: '258'
+      Name: BC8_run3
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '10751409'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '34616'
+      rRNA_rate: '0.0103325267141'
+- description: BC10_run1
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GGAGAA
+    barcode_id: BC10
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: 350
+    sort_date: Oct14
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '51'
+      5'-3' bias: 0.81
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.48369999999999996
+      Fragment Length Mean: 87.0
+      Genes Detected: 0
+      Intergenic Rate: 0.2261
+      Intronic Rate: 0.2901
+      Mapped: 4867322
+      Mapped reads: '5089259'
+      Mapped reads pct: 69.7483%
+      Mapping Rate: 0.6879926023425539
+      Mean Per Base Cov.: 0
+      Median insert size: '217'
+      Name: BC10_run1
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '7296609'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '21661'
+      rRNA_rate: '0.0183613388748'
+- description: BC15_run2
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: CACAGT
+    barcode_id: BC15
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: NA
+    sort_date: Feb15
+    starting_material: 50
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '45'
+      5'-3' bias: 102.26
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.632
+      Fragment Length Mean: 59.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1636
+      Intronic Rate: 0.20440000000000003
+      Mapped: 7208228
+      Mapped reads: '7540617'
+      Mapped reads pct: 96.3769%
+      Mapping Rate: 0.9621610885424495
+      Mean Per Base Cov.: 0
+      Median insert size: '137'
+      Name: BC15_run2
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '7824095'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '78740'
+      rRNA_rate: '0.0341641222914'
+- description: BC11_run1
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: AGCATG
+    barcode_id: BC11
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 325
+    sort_date: Oct14
+    starting_material: 50
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '50'
+      5'-3' bias: 0.96
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6709
+      Fragment Length Mean: 57.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1401
+      Intronic Rate: 0.1889
+      Mapped: 4504990
+      Mapped reads: '4695753'
+      Mapped reads pct: 95.1274%
+      Mapping Rate: 0.9493157009579365
+      Mean Per Base Cov.: 0
+      Median insert size: '260'
+      Name: BC11_run1
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '4936276'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '18198'
+      rRNA_rate: '0.0117574697212'
+- description: BC6_run2
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GTGCTT
+    barcode_id: BC6
+    compartment: growthcone
+    half_amplified: 'yes'
+    insert_size: NA
+    sort_date: Jun15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '46'
+      5'-3' bias: .nan
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6399
+      Fragment Length Mean: 38.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1433
+      Intronic Rate: 0.2168
+      Mapped: 1801555
+      Mapped reads: '1955614'
+      Mapped reads pct: 73.1594%
+      Mapping Rate: 0.715178916303795
+      Mean Per Base Cov.: 0
+      Median insert size: '135'
+      Name: BC6_run2
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '2673086'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '17709'
+      rRNA_rate: '0.0317698662576'
+- description: BC7_run3
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: AAGCCT
+    barcode_id: BC7
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: 345
+    sort_date: Jun15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '48'
+      5'-3' bias: 0.65
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.636
+      Fragment Length Mean: 138.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1382
+      Intronic Rate: 0.22579999999999997
+      Mapped: 14180447
+      Mapped reads: '15446802'
+      Mapped reads pct: 94.3792%
+      Mapping Rate: 0.9390785691277784
+      Mean Per Base Cov.: 0
+      Median insert size: '191'
+      Name: BC7_run3
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '16366739'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '137270'
+      rRNA_rate: '0.0316504145197'
+- description: BC9_run3
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: AAGAGG
+    barcode_id: BC9
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: NA
+    sort_date: Oct14
+    starting_material: 50
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '50'
+      5'-3' bias: .nan
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.1746
+      Fragment Length Mean: 300.0
+      Genes Detected: 0
+      Intergenic Rate: 0.36840000000000006
+      Intronic Rate: 0.4569
+      Mapped: 64479
+      Mapped reads: '82428'
+      Mapped reads pct: 2.28916%
+      Mapping Rate: 0.01799657702475796
+      Mean Per Base Cov.: 0
+      Median insert size: '174'
+      Name: BC9_run3
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '3600797'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '9'
+      rRNA_rate: '0.00196979645437'
+- description: BC10_run3
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GGAGAA
+    barcode_id: BC10
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: 350
+    sort_date: Oct14
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '51'
+      5'-3' bias: 0.78
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.49229999999999996
+      Fragment Length Mean: 59.0
+      Genes Detected: 0
+      Intergenic Rate: 0.225
+      Intronic Rate: 0.2827
+      Mapped: 11418458
+      Mapped reads: '11953388'
+      Mapped reads pct: 69.6717%
+      Mapping Rate: 0.6869570155904953
+      Mean Per Base Cov.: 0
+      Median insert size: '215'
+      Name: BC10_run3
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '17156724'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '52851'
+      rRNA_rate: '0.0187844003927'
+- description: BC9_run1
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: AAGAGG
+    barcode_id: BC9
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: NA
+    sort_date: Oct14
+    starting_material: 50
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '50'
+      5'-3' bias: .nan
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.1684
+      Fragment Length Mean: 300.0
+      Genes Detected: 0
+      Intergenic Rate: 0.3724
+      Intronic Rate: 0.4592
+      Mapped: 39378
+      Mapped reads: '50029'
+      Mapped reads pct: 2.14992%
+      Mapping Rate: 0.016999882143130047
+      Mean Per Base Cov.: 0
+      Median insert size: '174'
+      Name: BC9_run1
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '2327020'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '3'
+      rRNA_rate: '0.00113895216401'
+- description: BC12_run2
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GAGTCA
+    barcode_id: BC12
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 325
+    sort_date: Oct14
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '50'
+      5'-3' bias: 0.98
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.5954999999999999
+      Fragment Length Mean: 117.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1887
+      Intronic Rate: 0.2158
+      Mapped: 3757550
+      Mapped reads: '3899955'
+      Mapped reads pct: 83.4039%
+      Mapping Rate: 0.8288256771741027
+      Mean Per Base Cov.: 0
+      Median insert size: '245'
+      Name: BC12_run2
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '4675988'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '14086'
+      rRNA_rate: '0.0122158509468'
+- description: BC5_run2
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: ACCTCA
+    barcode_id: BC5
+    compartment: growthcone
+    half_amplified: 'yes'
+    insert_size: 335
+    sort_date: Feb15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '49'
+      5'-3' bias: 2.4
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6995999999999999
+      Fragment Length Mean: 112.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1331
+      Intronic Rate: 0.1673
+      Mapped: 3048830
+      Mapped reads: '3388212'
+      Mapped reads pct: 77.519%
+      Mapping Rate: 0.7562647714261335
+      Mean Per Base Cov.: 0
+      Median insert size: '183'
+      Name: BC5_run2
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '4370814'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '31987'
+      rRNA_rate: '0.0316935808287'
+- description: BC16_run2
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: TTGGCA
+    barcode_id: BC16
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 300
+    sort_date: Feb15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '44'
+      5'-3' bias: 1.17
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6148
+      Fragment Length Mean: 55.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1773
+      Intronic Rate: 0.2079
+      Mapped: 8255154
+      Mapped reads: '8648469'
+      Mapped reads pct: 97.5575%
+      Mapping Rate: 0.9744409669768058
+      Mean Per Base Cov.: 0
+      Median insert size: '119'
+      Name: BC16_run2
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '8864997'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '83434'
+      rRNA_rate: '0.0324293986021'
+- description: BC9_run2
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: AAGAGG
+    barcode_id: BC9
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: NA
+    sort_date: Oct14
+    starting_material: 50
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '50'
+      5'-3' bias: .nan
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.16820000000000002
+      Fragment Length Mean: 300.0
+      Genes Detected: 0
+      Intergenic Rate: 0.368
+      Intronic Rate: 0.46380000000000005
+      Mapped: 46737
+      Mapped reads: '59736'
+      Mapped reads pct: 2.21402%
+      Mapping Rate: 0.017406185290568622
+      Mean Per Base Cov.: 0
+      Median insert size: '174'
+      Name: BC9_run2
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '2698079'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '3'
+      rRNA_rate: '0.000967429861335'
+- description: BC8_run1
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GTCGTA
+    barcode_id: BC8
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 350
+    sort_date: Jun15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '49'
+      5'-3' bias: 0.95
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6733
+      Fragment Length Mean: 79.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1186
+      Intronic Rate: 0.20800000000000002
+      Mapped: 4201868
+      Mapped reads: '4407092'
+      Mapped reads pct: 96.0479%
+      Mapping Rate: 0.9586280374428786
+      Mean Per Base Cov.: 0
+      Median insert size: '260'
+      Name: BC8_run1
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '4588434'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '14828'
+      rRNA_rate: '0.010313193348'
+- description: BC11_run2
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: AGCATG
+    barcode_id: BC11
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 325
+    sort_date: Oct14
+    starting_material: 50
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '50'
+      5'-3' bias: 0.95
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6707
+      Fragment Length Mean: 75.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1394
+      Intronic Rate: 0.18989999999999999
+      Mapped: 4648204
+      Mapped reads: '4844240'
+      Mapped reads pct: 95.2114%
+      Mapping Rate: 0.9501952332465425
+      Mean Per Base Cov.: 0
+      Median insert size: '259'
+      Name: BC11_run2
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '5087877'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '18662'
+      rRNA_rate: '0.0116872486744'
+- description: BC15_run1
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: CACAGT
+    barcode_id: BC15
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: NA
+    sort_date: Feb15
+    starting_material: 50
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '45'
+      5'-3' bias: 128.98
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6311
+      Fragment Length Mean: 82.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1642
+      Intronic Rate: 0.2047
+      Mapped: 5977150
+      Mapped reads: '6253429'
+      Mapped reads pct: 96.2585%
+      Mapping Rate: 0.9609233764427757
+      Mean Per Base Cov.: 0
+      Median insert size: '136'
+      Name: BC15_run1
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '6496494'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '65138'
+      rRNA_rate: '0.0341455692221'
+- description: BC12_run1
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GAGTCA
+    barcode_id: BC12
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 325
+    sort_date: Oct14
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '50'
+      5'-3' bias: 0.95
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.5946
+      Fragment Length Mean: 123.0
+      Genes Detected: 0
+      Intergenic Rate: 0.19
+      Intronic Rate: 0.21539999999999998
+      Mapped: 3622163
+      Mapped reads: '3760827'
+      Mapped reads pct: 83.3709%
+      Mapping Rate: 0.8284355600139331
+      Mean Per Base Cov.: 0
+      Median insert size: '245'
+      Name: BC12_run1
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '4510957'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '13588'
+      rRNA_rate: '0.0122443977465'
+- description: BC7_run1
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: AAGCCT
+    barcode_id: BC7
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: 345
+    sort_date: Jun15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '48'
+      5'-3' bias: 0.69
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6371
+      Fragment Length Mean: 109.0
+      Genes Detected: 0
+      Intergenic Rate: 0.13720000000000002
+      Intronic Rate: 0.2257
+      Mapped: 6128048
+      Mapped reads: '6674524'
+      Mapped reads pct: 94.2245%
+      Mapping Rate: 0.9374164680204743
+      Mean Per Base Cov.: 0
+      Median insert size: '192'
+      Name: BC7_run1
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '7083643'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '58679'
+      rRNA_rate: '0.0312560756764'
+- description: BC11_run3
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: AGCATG
+    barcode_id: BC11
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 325
+    sort_date: Oct14
+    starting_material: 50
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '50'
+      5'-3' bias: 0.94
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6724
+      Fragment Length Mean: 78.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1389
+      Intronic Rate: 0.1887
+      Mapped: 10309534
+      Mapped reads: '10752222'
+      Mapped reads pct: 95.2188%
+      Mapping Rate: 0.9502375609110453
+      Mean Per Base Cov.: 0
+      Median insert size: '259'
+      Name: BC11_run3
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '11292116'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '42281'
+      rRNA_rate: '0.0119040747968'
+- description: BC14_run2
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: TCAGAG
+    barcode_id: BC14
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: NA
+    sort_date: Feb15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '47'
+      5'-3' bias: .nan
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.4579
+      Fragment Length Mean: -50.0
+      Genes Detected: 0
+      Intergenic Rate: 0.35369999999999996
+      Intronic Rate: 0.1884
+      Mapped: 706483
+      Mapped reads: '743669'
+      Mapped reads pct: 18.6306%
+      Mapping Rate: 0.17865459861427455
+      Mean Per Base Cov.: 0
+      Median insert size: '90'
+      Name: BC14_run2
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '3991649'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '7506'
+      rRNA_rate: '0.0462981810107'
+- description: BC16_run1
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: TTGGCA
+    barcode_id: BC16
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: 300
+    sort_date: Feb15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '44'
+      5'-3' bias: 1.36
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.613
+      Fragment Length Mean: 67.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1782
+      Intronic Rate: 0.20879999999999999
+      Mapped: 7864711
+      Mapped reads: '8241904'
+      Mapped reads pct: 97.5052%
+      Mapping Rate: 0.9738864997282553
+      Mean Per Base Cov.: 0
+      Median insert size: '118'
+      Name: BC16_run1
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '8452786'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '80229'
+      rRNA_rate: '0.0328530146078'
+- description: BC14_run1
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: TCAGAG
+    barcode_id: BC14
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: NA
+    sort_date: Feb15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '47'
+      5'-3' bias: .nan
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.45840000000000003
+      Fragment Length Mean: -56.0
+      Genes Detected: 0
+      Intergenic Rate: 0.3517
+      Intronic Rate: 0.18989999999999999
+      Mapped: 670753
+      Mapped reads: '706086'
+      Mapped reads pct: 18.6582%
+      Mapping Rate: 0.17891617957849323
+      Mean Per Base Cov.: 0
+      Median insert size: '90'
+      Name: BC14_run1
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '3784312'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '7241'
+      rRNA_rate: '0.0469996430078'
+- description: BC14_run3
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: TCAGAG
+    barcode_id: BC14
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: NA
+    sort_date: Feb15
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '47'
+      5'-3' bias: .nan
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.45909999999999995
+      Fragment Length Mean: -61.0
+      Genes Detected: 0
+      Intergenic Rate: 0.3533
+      Intronic Rate: 0.18760000000000002
+      Mapped: 312098
+      Mapped reads: '328264'
+      Mapped reads pct: 19.0179%
+      Mapping Rate: 0.1825230567690697
+      Mean Per Base Cov.: 0
+      Median insert size: '90'
+      Name: BC14_run3
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '1726076'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '3309'
+      rRNA_rate: '0.04604787086'
+- description: BC15_run3
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: CACAGT
+    barcode_id: BC15
+    compartment: soma
+    half_amplified: 'no'
+    insert_size: NA
+    sort_date: Feb15
+    starting_material: 50
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '45'
+      5'-3' bias: .nan
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.6343
+      Fragment Length Mean: 73.0
+      Genes Detected: 0
+      Intergenic Rate: 0.1617
+      Intronic Rate: 0.2041
+      Mapped: 2920235
+      Mapped reads: '3054149'
+      Mapped reads pct: 96.3713%
+      Mapping Rate: 0.962112299121682
+      Mean Per Base Cov.: 0
+      Median insert size: '137'
+      Name: BC15_run3
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '3169147'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '31936'
+      rRNA_rate: '0.0340566387838'
+- description: BC10_run2
+  dirs:
+    config: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    fastq: null
+    flowcell: null
+    galaxy: /n/regal/hsph_bioinfo/bcbio_nextgen/galaxy
+    work: /n/regal/hsph_bioinfo/kirchner/poulo-rnaseq/growthcone/work
+  genome_build: mm10
+  genome_resources:
+    aliases:
+      ensembl: mus_musculus_vep_81_GRCm38
+      snpeff: GRCm38.78
+    rnaseq:
+      dexseq: ../rnaseq/ref-transcripts.dexseq.gff3
+      gene_bed: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.bed
+      rRNA_fa: ../rnaseq/rRNA.fa
+      refflat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.refFlat
+      transcriptome_index:
+        tophat: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/tophat/mm10_transcriptome.ver
+      transcripts: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts.gtf
+      transcripts_mask: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/rnaseq/ref-transcripts-mask.gtf
+    variation:
+      dbsnp: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/mm10-dbSNP-2013-09-12.vcf.gz
+      lcr: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/variation/LCR.bed.gz
+    version: 11
+  metadata:
+    barcode: GGAGAA
+    barcode_id: BC10
+    compartment: growthcone
+    half_amplified: 'no'
+    insert_size: 350
+    sort_date: Oct14
+    starting_material: 100
+  sam_ref: /n/regal/hsph_bioinfo/bcbio_nextgen/genomes/Mmusculus/mm10/seq/mm10.fa
+  summary:
+    metrics:
+      '%GC': '51'
+      5'-3' bias: 0.78
+      Duplicates: '0'
+      Duplicates pct: 0%
+      Duplication Rate of Mapped: 0.0
+      Exonic Rate: 0.48469999999999996
+      Fragment Length Mean: 82.0
+      Genes Detected: 0
+      Intergenic Rate: 0.2259
+      Intronic Rate: 0.2894
+      Mapped: 5040516
+      Mapped reads: '5270972'
+      Mapped reads pct: 69.6773%
+      Mapping Rate: 0.6872450960060831
+      Mean Per Base Cov.: 0
+      Median insert size: '217'
+      Name: BC10_run2
+      Quality format: standard
+      Sequence length: 25-75
+      Sequences flagged as poor quality: '0'
+      Total reads: '7564835'
+      Transcripts Detected: 0
+      avg_coverage_per_region: NA
+      rRNA: '22539'
+      rRNA_rate: '0.0184159910841'
