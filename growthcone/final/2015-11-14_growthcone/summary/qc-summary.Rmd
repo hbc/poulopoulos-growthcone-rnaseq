@@ -555,7 +555,7 @@ are the quartiles of baseMean:
 summary(res$baseMean)
 ```
 
-I popped the gene lists into WebGestalt (http://bioinfo.vanderbilt.edu/webgestalt), separating them into up and down gene lists. There is a huge enrichment for proteins in the ribosomal machinery in the growthcones,
+I popped the gene lists into [WebGestalt](http://bioinfo.vanderbilt.edu/webgestalt), separating them into up and down gene lists. There is a huge enrichment for proteins in the ribosomal machinery in the growthcones,
 there's 86 genes in the gene list 42 of them are up in the growth cones. The
 focal adhesion KEGG pathway is also upregulated, they are several collagen
 subunits and laminin.
@@ -576,4 +576,11 @@ those lists similarly to look at genes specifically enriched or
 depleted from the growthcones. These are all Ensembl gene identifiers.
 
 Those differentially expressed files and the expressed files are
-tarred up here:
+tarred up [here](https://github.com/hbc/poulopoulos-growthcone-rnaseq/raw/master/growthcone/final/2015-11-14_growthcone/summary/poulopoulos-de-results.tar)
+
+## Summary
+The results seem reasonable to me, being relatively enriched for RNA encoding
+ribosomal proteins makes a lot of sense for the growthcones. The data looks
+reasonable in terms of quality, with the caveats I talked about above. The
+growthcone data is widely variable, and future experiments might do well
+to do more replicates to have more power.
