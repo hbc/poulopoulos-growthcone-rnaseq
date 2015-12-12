@@ -1,0 +1,677 @@
+---
+  html_document:
+    toc: true
+    highlight: zenburn
+    theme: united
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(tidy=TRUE, highlight=TRUE, dev="png",
+               cache=TRUE, highlight=TRUE, autodep=TRUE, warning=FALSE, error=FALSE,
+               message=FALSE, prompt=TRUE, comment='', fig.cap='')
+```
+
+# Overview
+This is a project to look at transcription in the growth cone vs. the soma,
+initiated by Alexandros Poulopoulos from the Macklis lab. The experimental setup
+is a little complex, there were only a small number of actual biological
+replicates run but several technical replicates. The technical replicates come
+in two flavors. The first is that the samples were run multiple times, there was
+some overclustering problems on the lanes that lead to a low number of reads, so
+the libraries were rerun. The second is that a small set of the samples only
+had half of the sample loaded, the idea was to look at the quantitative range.
+
+There are paired growthcone-soma samples that are paired via sort date, and
+there are three sort dates, so there are three biological replicates. We
+will block on sort date in the model.
+
+We'll simply add the counts together for the reruns of the samples if they
+look to be highly correlated and don't seem to have a batch effect. For the
+half loaded samples, we only have half amplified samples for the growthcone,
+and only from two two dates, Feb15 and Jun15. I don't really know how we can
+use this information other than to just compare it to the non-half loaded
+samples and see how well the correlation is. We'll probably drop those when
+we do the analysis.
+
+This round also includes a previous experiment with samples that were
+thrown out, those samples have barcodes `group`, `group2` and `group3`.
+These samples weren't separated into multiple lanes so we don't have to
+do any combining of those samples.
+
+
+```{r qc-setup}
+library(ggplot2)
+library(reshape)
+library(gplots)
+library(edgeR)
+library(CHBUtils)
+library(pheatmap)
+library(DESeq2)
+project_summary = "/Users/rory/cache/poulopoulos-growthcone-rnaseq/new-results/2015-12-04_growthcone/project-summary.csv"
+counts_file = "/Users/rory/cache/poulopoulos-growthcone-rnaseq/new-results/2015-12-04_growthcone/combined.counts"
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442",
+"#0072B2", "#D55E00", "#CC79A7")
+summarydata = data.frame(read.table(project_summary, header=TRUE, sep=","), row.names="Name", check.rows=FALSE)
+summarydata$Name = rownames(summarydata)
+summarydata = summarydata[order(summarydata$Name),]
+counts = read.table(counts_file, header=TRUE, row.names="id", check.names=FALSE)
+counts = counts[, order(colnames(counts))]
+colnames(counts) = gsub(".counts", "", colnames(counts))
+# this is a list of all non user-supplied metadata columns that could appear
+known_columns = c("Name", "X.GC", "Exonic.Rate", "Sequences.flagged.as.poor.quality",
+    "rRNA_rate", "Fragment.Length.Mean", "Intronic.Rate", "Intergenic.Rate",
+    "Mapping.Rate", "Quality.format", "Duplication.Rate.of.Mapped", "Mapped",
+    "rRNA", "Sequence.length", "Transcripts.Detected", "Mean.Per.Base.Cov.",
+    "Genes.Detected", "Unique.Starts.Per.Read", "unique_starts_per_read",
+    "complexity", "X5.3.bias", "Duplicates.pct", "Duplicates", "Mapped.reads",
+    "Median.insert.size", "Mapped.reads.pct", "Total.reads",
+    "avg_coverage_per_region")
+    ```
+
+I forgot to put the `sort_date` for the new samples and we use this for pairing
+later on, so I'll add dummy values for it now.
+
+```{r add-sort-date-for-new-samples}
+summarydata$sort_date = as.character(summarydata$sort_date)
+summarydata["growthcone_2014_1", "sort_date"] = "2014-group1"
+summarydata["growthcone_2014_2", "sort_date"] = "2014-group2"
+summarydata["growthcone_2014_3", "sort_date"] = "2014-group3"
+summarydata["soma_2014_1", "sort_date"] = "2014-group1"
+summarydata["soma_2014_2", "sort_date"] = "2014-group2"
+summarydata["soma_2014_3", "sort_date"] = "2014-group3"
+summarydata$sort_date = as.factor(summarydata$sort_date)
+summarydata$barcode_id = as.character(summarydata$barcode_id)
+summarydata["growthcone_2014_1", "barcode_id"] = "growthcone_2014_1"
+summarydata["growthcone_2014_2", "barcode_id"] = "growthcone_2014_2"
+summarydata["growthcone_2014_3", "barcode_id"] = "growthcone_2014_3"
+summarydata["soma_2014_1", "barcode_id"] = "soma_2014_1"
+summarydata["soma_2014_2", "barcode_id"] = "soma_2014_2"
+summarydata["soma_2014_3", "barcode_id"] = "soma_2014_3"
+summarydata$barcode_id = as.factor(summarydata$barcode_id)
+```
+
+We can see here that there is quite a bit of variation between the mapped
+reads that persists across the 3 different runs. **BC9** in particular has a
+very low number of reads mapped.
+
+```{r heatmap-function}
+get_heatmap_fn = function(summarydata) {
+    # return the pheatmap function with or without metadata
+    metadata = summarydata[, !colnames(summarydata) %in% known_columns, drop=FALSE]
+    if(ncol(metadata) == 0) {
+       return(pheatmap)
+    }
+    else {
+    # rownames(metadata) = summarydata$Name
+    heatmap_fn = function(data, ...) {
+        pheatmap(data, annotation=metadata, ...)
+    }
+    return(heatmap_fn)
+}}
+heatmap_fn = get_heatmap_fn(summarydata)
+```
+
+# Quality control metrics
+
+## Mapped reads
+```{r mapped-plot}
+ggplot(summarydata, aes(x=Name, y=Mapped)) +
+    theme_bw(base_size=10) +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90)) +
+    geom_bar(stat="identity") +
+    ylab("mapped reads") + xlab("")
+    ```
+
+We can see here that there is quite a bit of variation between the mapped
+reads that persists across the 3 different runs. **BC9** and **BC14**in
+particular have a very low number of reads mapped. For the new run
+**growthcone_2014_1** and **soma_2014_1** both look poor.
+
+## Genomic mapping rate
+```{r mapping-rate-plot}
+ggplot(summarydata, aes(x=Name, y=Mapping.Rate)) +
+    geom_bar(stat="identity") +
+    ylab("mapping rate") + xlab("") +
+    theme_bw(base_size=10) +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90))
+          ```
+
+Mapping rate is a better metric of if there is something wrong with the libraries.
+Here we see that **BC14** and **BC9** look pretty bad for their mapping rate but
+overall the mapping rate is lower than we would expect, we'd normally be expecting
+about 90% of the reads to map. This could be due to some kind of adapter contamination
+issues we are not addressing when making the samples. What kit was used to make these libraries? What adapter sequences can we expect to see on the end
+of the sequences?
+
+In the new samples, **growthcone_2014_1** and **soma_2014_1** look fine in terms
+of mapping rate.
+
+We can see from the above plot that in general the growthcone libraries have a
+poorer mapping rate than the non-growthcone libraries. This holds true for
+the new samples as well.
+
+## Number of genes detected
+```{r genes-detected-plot}
+dd = data.frame(Name=names(counts), Genes.Detected = colSums(counts > 0))
+ggplot(dd, aes(x=Name, y=Genes.Detected)) +
+    geom_bar(stat="identity") +
+    theme_bw(base_size=10) +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90)) +
+    ylab("genes detected") + xlab("")
+    ```
+
+We detect on average less genes in the growthcone libraries, this might make sense if there are only a subset of the genes in the growthcones. This would be a more convincing argument if there was not one growthcone sample **BC10** that has a high number of genes deteceted. We can see **growthcone_2014_1** and **soma_2014_1** have a low number of
+genes detected. These libraries probably did not work.
+
+## Gene detection saturation
+```{r saturation-plot}
+dd = data.frame(Mapped=summarydata$Mapped, Genes.Detected = colSums(counts > 0))
+ggplot(dd, aes(x=Mapped, y=Genes.Detected)) +
+    geom_point() +
+    theme_bw(base_size=10) +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90)) +
+    ylab("genes detected") + xlab("reads mapped")
+```
+This plot is to help us figure out if we are saturating the number of genes
+robustly detected in sequencing. Here we called detected as having counts > 10,
+rather than counts > 0. It looks like both the growthcone and the soma
+libraries cap out at the same rate, which is not what we would be expecting
+if the growthcone libraries were a smaller set of RNA than the soma libraries.
+
+## Exonic mapping rate
+```{r exonic-mapping-plot}
+ggplot(summarydata, aes(x=Name, y=Exonic.Rate)) +
+    geom_bar(stat="identity") +
+    theme_bw(base_size=10) +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90)) +
+    ylab("exonic mapping rate") + xlab("")
+```
+Another way to determine what went wrong with the sequencing is to look at the
+rate mapped reads map to exons. Here we see that for BC9 of the reads that map,
+a small amount map to exons. This, coupled with the low mapping rate generally
+indicates there was very little RNA in this sample and most of what got sequenced
+was either adapter sequence or genomic DNA.
+
+## rRNA mapping rate
+```{r rRNA-rate-plot}
+ggplot(summarydata, aes(x=Name, y=rRNA_rate)) +
+    geom_bar(stat="identity") +
+    theme_bw(base_size=10) +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90)) +
+    ylab("rRNA rate") + xlab("")
+```
+rRNA mapping rate is reasonable for all the samples. Again we see **BC9** with
+a very small rate, since it seems like whatever is mapping in there is not
+from RNA. **growthcone_2014_1** and **soma_2014_1** don't have off the charts
+rRNA mapping, so the problems with the libraries is not due to rRNA contamination.
+I think most likely there was very little RNA in the samples left when those two
+libraries were made.
+
+## Estimated fragment length of paired-end reads
+```{r fragment-length-plot}
+ggplot(summarydata, aes(x=Name, y=Fragment.Length.Mean)) +
+    geom_bar(stat="identity") +
+    theme_bw(base_size=10) +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90)) +
+    ylab("fragment length") + xlab("")
+```
+We can see more problems with BC9-- the fragment size is very large, that means
+we likely had large pieces of DNA leftover that the libraries were made from.
+We can also see some problems with BC14, the estimated fragment length is negative.
+This means that the average fragment length is less than the read length, which is
+an indication of degraded RNA. That might be why this sample looks a little
+worse than the others.
+
+When we look at BC9, about 40% of the sequence is Truseq adapter sequence.
+We trim this off during our processing, so these usually indicate stacks
+of Truseq sequence when mulitple copies are stacked together.
+The BC14 samples, about 10% is is taken up by the Truseq adapater.
+Good libraries like BC10 don't have the sequence.
+
+All of these lines of evidence point towards BC9 not having RNA in the sample
+and BC14 having degraded RNA.
+
+**growthcone_2014_1** and **soma_2014_1** likely have a very non-complex
+library; so there is a small amount of RNA in the tube, but it is made up of
+the transcripts from a small number of genes.
+
+## Boxplot of log10 counts per gene
+```{r boxplot-raw}
+melted = melt(counts)
+colnames(melted) = c("sample", "count")
+melted$sample = factor(melted$sample)
+melted = melted[order(melted$sample),]
+melted$count = log(melted$count)
+ggplot(melted, aes(x=sample, y=count)) + geom_boxplot() +
+    theme_bw(base_size=10) +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90)) + xlab("")
+```
+
+## Boxplot of log10 TMM-normalized counts per gene
+Trimmed mean of M-values (TMM) normalization is described
+[here](http://genomebiology.com/2010/11/3/R25)
+
+Robinson, M. D., & Oshlack, A. (2010). A scaling normalization method for differential expression analysis of RNA-seq data. Genome Biology, 11(3). doi:10.1186/gb-2010-11-3-r25
+
+```{r boxplot-normalized}
+y = DGEList(counts=counts)
+y = calcNormFactors(y)
+normalized_counts = cpm(y, normalized.lib.sizes=TRUE)
+melted = melt(normalized_counts)
+colnames(melted) = c("gene", "sample", "count")
+melted$sample = factor(melted$sample)
+melted = melted[order(melted$sample),]
+melted$count = log(melted$count)
+ggplot(melted, aes(x=sample, y=count)) + geom_boxplot() +
+    theme_bw(base_size=10) +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90)) + xlab("")
+```
+Normalizing the counts by TMM-normalization can't fully normalize the samples.
+
+## PCA plot
+```{r pca}
+dds = DESeqDataSetFromMatrix(countData=counts, colData=summarydata, design=~Name)
+vst = varianceStabilizingTransformation(dds)
+pca = plotPCA(vst, intgroup=c("compartment"), return=TRUE)
+ggplot(pca, aes(PC1, PC2, color=group, label=name)) + geom_text(size=4) +
+    theme_bw() +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90))
+```
+Here we can see that the `BC9` and `BC14` libraries cluster apart from the other
+growthcone libraries. These are
+likely because these libraries both have issues with adapter contamination that
+are symtpoms of having a low RNA content. Dropping these samples seems prudent.
+The `BC6` sample also looks
+like it is an outlier from the other samples in the PCA plot, but it is different
+than the `BC9` and `BC14` samples. The `BC6` sample was the other sample with a
+very low number of genes detected. This sample doesn't have the same
+adapter contamination issue, but the GC content looks out of whack with
+a huge spike in the mean GC content instead of an even distribution. We can also
+see that the `growthcone_2014_1` and `soma_2014_1` samples cluster with the
+`BC9` and `BC14` samples, which looked like they failed.
+
+The `BC6` library looks like it is less complex than the other libraries,
+when we look at the sequence duplication plots. As an extreme example, lets look
+a the duplication plot for `BC9`:
+
+![BC9 duplication](images/BC9-duplication.png)
+
+`BC9` was mostly adapter sequence and we can see there are reads that are duplicated
+over 10k times. For an example of what a good library looks like, lets look at
+`BC10`:
+
+![BC10 duplication](images/BC10-duplication.png)
+
+It is normal to see some duplication in RNA-seq just because there is only 2% of
+the genome that is sequenced, so you should see some duplication, just not sequences
+with a crazy amount.
+
+`BC6` has a big spike:
+
+![BC6 duplication](images/BC6-duplication.png)
+
+A sample that was like `BC6` in terms of reads mapped and mapping percentage
+is `BC5`. That sample doesn't have as much of a prominent spike:
+
+![BC5 duplication](images/BC5-duplication.png)
+
+These are all growthcone libraries. So the question is, is this sample what we are expecting to see when we look at the growthcones, a low number of genes detected? Or are the other samples where we see a high number of genes detected what we expect. I think
+that the BC6 library probably also had low RNA content, just not as low as BC9
+and BC14, but it is still problematic. So going forward I'm going to drop BC9,
+BC14 and BC6 from the analysis. Hopefully that leaves us with enough data
+to do something with. I won't dig to try to find out why the `growthcone_2014_1` and
+`soma_2014_1` samples in this followup report look bad, we'll just drop them.
+
+The BC6 and BC5 samples are the two samples that are in the half loaded group,
+so I think the takehome is don't do that in the future.
+
+```{r drop-bad-samples}
+bad_samples = c("BC9", "BC14", "BC6", "growthcone_2014_1", "soma_2014_1")
+summarydata = subset(summarydata, !barcode_id %in% bad_samples)
+counts = counts[, colnames(counts) %in% rownames(summarydata)]
+```
+
+## PCA plot with filtered samples
+```{r pca-filtered}
+dds = DESeqDataSetFromMatrix(countData=counts, colData=summarydata, design=~Name)
+vst = varianceStabilizingTransformation(dds)
+pca = plotPCA(vst, intgroup=c("compartment"), return=TRUE)
+ggplot(pca, aes(PC1, PC2, color=group, label=name)) + geom_text(size=4) +
+    theme_bw() +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90))
+```
+
+There is some variability by sort date. The Feb15 samples separate out from
+the other samples along the 2nd principal component by sort date:
+
+```{r sort-date-pca}
+plotPCA(vst, intgroup=c("sort_date", "starting_material"))
+```
+
+Unfortunately the growthcone sample from Feb15, the only sample that survived is
+BC5, which is the last remaining half loaded sample, so we might be making
+some apples to oranges type comparison with that one.
+
+We can see the amount of starting material has an effect for the Feb15 soma
+samples but not so much for the Oct14 samples. We can just drop the
+samples with starting material = 50 for those.
+
+```{r pca-start-date-filtered}
+summarydata = subset(summarydata, is.na(starting_material) || !starting_material == 50)
+counts = counts[, rownames(summarydata)]
+dds = DESeqDataSetFromMatrix(countData=counts, colData=summarydata, design=~Name)
+vst = varianceStabilizingTransformation(dds)
+pca = plotPCA(vst, intgroup=c("compartment"), return=TRUE)
+ggplot(pca, aes(PC1, PC2, color=group, label=name)) + geom_text(size=4) +
+    theme_bw() +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90))
+plotPCA(vst, intgroup=c("sort_date", "starting_material"))
+```
+
+## Final touches
+To recap we're left with samples that separate like this on the PCA:
+
+```{r final-pca}
+pca = plotPCA(vst, intgroup = c("compartment"), return = TRUE)
+ ggplot(pca, aes(PC1, PC2, color = group, label = name)) + geom_text(size = 4) +
+     theme_bw() + theme(panel.grid.major = element_line(size = 0.5, color = "grey"),
+     axis.text.x = element_text(angle = 90))
+```
+
+Each of those are groups of three from each run; the runs almost perfectly
+overlap so it is safe to combine them into one set of counts for each
+library. We'll construct sample summary information and a count matrix of those
+combined samples. For the counts we'll just add the counts together for each
+run.
+
+```{r finalize-counts}
+library(dplyr)
+library(tidyr)
+fcounts = counts
+fcounts$id = rownames(fcounts)
+melted = melt(fcounts)
+melted = merge(melted, summarydata, by.x="variable", by.y="Name")
+grouped = melted %>% group_by(id, barcode_id) %>% summarise(value=sum(value))
+combined = grouped %>% spread(barcode_id, value)
+combined = data.frame(combined)
+rownames(combined) = combined$id
+combined$id = NULL
+fsummary = summarydata
+fsummary = fsummary[, colnames(fsummary) != "Name"]
+rownames(fsummary) = NULL
+fsummary = fsummary[, c("barcode", "barcode_id", "compartment", "half_amplified", "sort_date")]
+fsummary = unique(fsummary)
+rownames(fsummary) = fsummary$barcode_id
+fsummary$Name = rownames(fsummary)
+counts = combined
+summarydata = fsummary
+dds = DESeqDataSetFromMatrix(countData=counts, colData=summarydata, design=~Name)
+vst = varianceStabilizingTransformation(dds)
+plotPCA(vst, intgroup=c("compartment"))
+```
+
+```{r de-setup}
+library(DESeq2)
+library(DEGreport)
+library(vsn)
+design = ~sort_date+compartment
+condition = "compartment"
+```
+
+and samples that look like this:
+
+```{r final-samples, results='asis'}
+knitr::kable(summarydata)
+```
+
+We're a little stuck because one of the Feb15 samples is the half amplified
+sample so we're comparing apples to oranges a little bit there.
+
+# Differential expression
+For diffential expression we'll drop all genes that have aren't expressed
+in any of the samples, and analyze them with DESeq2, running a paired analysis
+looking at the effect of **compartment**, doing a paired analysis comparing only samples sorted on the same date to each other.
+```{r deseq2-expression-analysis, results='asis'}
+design = ~sort_date+compartment
+counts = counts[rowSums(counts>0)>1,]
+dds = DESeqDataSetFromMatrix(countData=counts, colData=summarydata, design = design)
+dds = DESeq(dds)
+```
+
+## Effect of variance stabilization
+
+```{r deseq-diagnostics, results='asis'}
+par(mfrow=c(1,3))
+notAllZero <- (rowSums(counts(dds))>0)
+rld <- rlog(dds)
+vsd <- varianceStabilizingTransformation(dds)
+rlogMat <- assay(rld)
+vstMat <- assay(vsd)
+
+meanSdPlot(log2(counts(dds,normalized=TRUE)[notAllZero,] + 1),
+           ylim = c(0,2.5))
+meanSdPlot(assay(rld[notAllZero,]), ylim = c(0,2.5))
+meanSdPlot(assay(vsd[notAllZero,]), ylim = c(0,2.5))
+
+```
+
+## Dispersion estimates
+
+```{r dispersion-estimate}
+plotDispEsts(dds)
+```
+
+```{r deseq2-handler}
+handle_deseq2 = function(dds, summarydata, column) {
+  all_combs = combn(levels(summarydata[,column]), 2, simplify=FALSE)
+  all_results = list()
+  contrast_strings = list()
+  for(comb in all_combs) {
+    contrast_string = paste(comb, collapse=" vs ")
+    contrast = c(column, comb)
+    res = results(dds, contrast=contrast)
+    res = res[order(res$padj),]
+    all_results = c(all_results, res)
+    contrast_strings = c(contrast_strings, contrast_string)
+  }
+  names(all_results) = contrast_strings
+  return(all_results)
+}
+```
+
+## MA-plots
+
+```{r DESeq-output, results='asis'}
+all_results = handle_deseq2(dds, summarydata, condition)
+len = length(all_results)
+nr = ceiling( len / 3 )
+nc = ceiling( len / nr )
+par(mfrow=c(nr,nc))
+for(i in seq(length(all_results))) {
+  plotMA(all_results[[i]])
+  title(paste("MA plot for contrast", names(all_results)[i]))
+}
+```
+
+## Volcano-plots
+
+```{r DESeq-volcano}
+for(i in seq(length(all_results))) {
+  stats = as.data.frame(all_results[[i]][,c(2,6)])
+  p = volcano_density_plot(stats, title=names(all_results)[i], lfc.cutoff=1.5)
+  print(p)
+}
+```
+
+## DEGreport
+
+```{r get-groups}
+get_groups <- function(d, comp, condition)
+{
+  g <- unlist(strsplit(comp," "))
+  g1 <- d$Name[d[, (names(d)==condition)]==g[1]]
+  g2 <- d$Name[d[, (names(d)==condition)]==g[3]]
+  list(g1,g2)
+}
+```
+
+### Pvalues-vs-Mean
+Here we plot some information about how the p-values are correlated with the
+mean or the standard deviation. For these, within each quantile we should see
+an even distribution. We should see an encrichment for lower p-values if
+there is a set of genes differentially expressed and we see that as well.
+
+```{r DEGreport-M}
+plots = list()
+scale_factor = round(1/nr * 14)
+for(i in seq(length(all_results))) {
+  plots[[i]] = degMean(all_results[[i]]$pvalue, rlogMat) +
+  theme_bw(base_size = scale_factor) +
+  ggtitle(paste0("Pvalues-vs-Mean for ", names(all_results)[i]))
+}
+do.call(grid.arrange,plots)
+```
+
+### Pvalues-vs-Variation
+
+```{r DEGreport-V}
+plots = list()
+for(i in seq(length(all_results))) {
+  plots[[i]] = degVar(all_results[[i]]$pvalue, rlogMat) +
+  theme_bw(base_size = scale_factor) +
+  ggtitle(paste0("Pvalues-vs-Variation for ", names(all_results)[i]))
+}
+do.call(grid.arrange,plots)
+```
+
+### Mean-vs-Variation
+```{r DEGreport-MV}
+plots = list()
+for(i in seq(length(all_results))) {
+  g <- get_groups(summarydata, names(all_results)[i], condition)
+  if(length(g[[1]]) < 2 | length(g[[2]]) < 2) {
+     next
+   }
+  plots[[i]] = degMV(g[[1]], g[[2]], all_results[[i]]$pvalue, counts(dds,normalized=TRUE)) +
+  theme_bw(base_size = scale_factor) +
+  ggtitle(paste0("Mean-vs-Variation for ", names(all_results)[i]))
+}
+if(length(plots) > 0) {
+    do.call(grid.arrange,plots)
+}
+```
+```{r setup-results}
+library(biomaRt)
+res = data.frame(all_results[[1]])
+mouse = useMart(biomart = "ENSEMBL_MART_ENSEMBL",
+                dataset="mmusculus_gene_ensembl",
+                host = "jul2015.archive.ensembl.org")
+conversions = getBM(attributes=c("ensembl_gene_id", "mgi_symbol"), mart=mouse)
+matches = match(rownames(res), conversions$ensembl_gene_id)
+res$symbol = conversions$mgi_symbol[matches]
+write.table(res, file="results_de.tsv", sep="\t", quote=FALSE,
+            row.names=TRUE, col.names=TRUE)
+soma_samples = c("BC12", "BC16", "BC8", "soma_2014_2", "soma_2014_3")
+gc_samples = c("BC10", "BC5", "BC7", "growthcone_2014_2", "growthcone_2014_3")
+```
+
+## Differentially expressed genes
+Finally, we'll take the sets of differentially expressed genes and do
+some work with them. We'll attach some metadata about the genes
+to each gene and we'll do some gene set enrichment analyses to see if
+certain sets of genes are differentially regulated.
+
+There are `r sum(res$padj < 0.1, na.rm=TRUE)` differentially expressed genes.
+`r sum(res$padj < 0.1 & res$log2FoldChange > 0, na.rm=TRUE)` are higher
+in the growthcones compared to the soma and
+`r sum(res$padj < 0.1 & res$log2FoldChange < 0, na.rm=TRUE)`
+are lower in the growthcones compared to the soma.
+
+Many of these differentially expressed genes we see only in the growthcone:
+
+```{r growthcone-specific, results='asis'}
+diff = rownames(subset(res, padj < 0.1))
+knitr::kable(res[diff[rowSums(counts[diff,soma_samples]) == 0],])
+```
+
+and only in the soma:
+
+```{r soma-specific, results='asis'}
+knitr::kable(res[diff[rowSums(counts[diff,gc_samples]) == 0],])
+```
+
+Many of these are not genes that are just expressed at a low level. Many of
+them are in the upper quartile of the expression levels, so this isn't
+just a case of a gene getting missed because it is expressed at a low level. Here
+are the quartiles of baseMean:
+
+```{r basemean-quartiles}
+summary(res$baseMean)
+```
+
+I wrote out three lists, the Ensembl gene IDs of genes that are up
+in the growthcones, the IDs that are down and the IDs that are expressed,
+where expressed has a DESeq2 assigned baseMean expression level of 10 or greater.
+
+```{r go-analysis-setup}
+up_gc = rownames(subset(res, log2FoldChange > 0, padj < 0.05))
+write.table(up_gc, file="up-growthcone-ensembl-ids.txt", quote=FALSE,
+            row.names=FALSE, col.names=FALSE)
+down_gc = rownames(subset(res, log2FoldChange < 0, padj < 0.05))
+write.table(down_gc, file="down-growthcone-ensembl-ids.txt", quote=FALSE,
+            row.names=FALSE, col.names=FALSE)
+expressed = rownames(subset(res, baseMean > 10))
+write.table(expressed, file="expressed-ensembl-ids.txt", quote=FALSE,
+            row.names=FALSE, col.names=FALSE)
+```
+
+As an example of what you can do with this data,
+I popped the gene lists into [WebGestalt](http://bioinfo.vanderbilt.edu/webgestalt), separating them into up and down gene lists. I focused on the list of genes that
+were enriched in the growthcones, using the set of expressed genes as
+a background.
+
+![](images/final_DAG_file_1449889165.gif)
+
+I included four lists of genes
+that you can use with these tools. The first list is of genes that are expressed,
+which I definied as having at least 10 counts total across all of the samples. The
+second list is a list of all of the differentially expressed genes, using
+a FDR cutoff of 0.05. If you don't care about the direction of expression, you
+can load the DE list and then use the list of expressed genes as a background list
+for the enrichment tools. The two other lists are the DE list, but separated
+into up in growthcone or down in growthcone compared to the soma. You can use
+those lists similarly to look at genes specifically enriched or
+depleted from the growthcones. These are all Ensembl gene identifiers.
+
+Those differentially expressed files and the expressed files are
+tarred up [here](https://github.com/hbc/poulopoulos-growthcone-rnaseq/raw/master/growthcone/final/2015-11-14_growthcone/summary/poulopoulos-de-results.tar)
+
+## Summary
+The results seem reasonable to me, being relatively enriched for RNA encoding
+ribosomal proteins makes a lot of sense for the growthcones. The data looks
+reasonable in terms of quality, with the caveats I talked about above. The
+growthcone data is widely variable, and future experiments might do well
+to do more replicates to have more power.
+
+```{r DESeq-tables, results='asis'}
+for(i in seq(length(all_results))) {
+  cat(paste("Lowest adjusted p-value hits for", names(all_results)[i]))
+  out_df = as.data.frame(all_results[[i]])
+  print(knitr::kable(head(out_df)))
+  write.table(out_df, file=paste(names(all_results)[i], ".tsv", sep=""),
+                         quote=FALSE, sep="\t", row.names=TRUE, col.names=TRUE)
+  cat("\n")
+}
+```
