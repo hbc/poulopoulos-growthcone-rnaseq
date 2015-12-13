@@ -584,11 +584,9 @@ mouse = useMart(biomart = "ENSEMBL_MART_ENSEMBL",
                 dataset="mmusculus_gene_ensembl",
                 host = "jul2015.archive.ensembl.org")
 conversions = getBM(attributes=c("ensembl_gene_id", "ensembl_transcript_id",
-                    "mgi_symbol"), mart=mouse)
+                    "mgi_symbol", "gene_biotype"), mart=mouse)
 matches = match(rownames(res), conversions$ensembl_gene_id)
 res$symbol = conversions$mgi_symbol[matches]
-write.table(res, file="results_de.tsv", sep="\t", quote=FALSE,
-            row.names=TRUE, col.names=TRUE)
 soma_samples = c("BC12", "BC16", "BC8", "soma_2014_2", "soma_2014_3")
 gc_samples = c("BC10", "BC5", "BC7", "growthcone_2014_2", "growthcone_2014_3")
 ```
@@ -664,6 +662,32 @@ depleted from the growthcones. These are all Ensembl gene identifiers.
 Those differentially expressed files and the expressed files are
 tarred up [here](https://github.com/hbc/poulopoulos-growthcone-rnaseq/raw/master/growthcone/final/2015-11-14_growthcone/summary/poulopoulos-de-results.tar)
 
+## Previous results
+We should hopefully see the new results with more replicates are
+similar to the previous results.
+
+```{r previous-to-current}
+prev_results = read.table("deseq2_results_original.tsv", sep="\t", header=TRUE)
+prev_up = rownames(subset(prev_results, padj < 0.1 & log2FoldChange > 0))
+current_up = rownames(subset(res, padj < 0.1 & log2FoldChange > 0))
+table(prev_up %in% current_up)
+```
+Of the ~240 genes up in the growthcones in the previous run, we see 190 of them
+in the run with the old samples added so there is some differences but the
+main effects are there.
+
+## lncRNA
+A question came up in Basecamp if any of the genes enriched in the growthcones
+are lncRNA. I added the biotype and gene symbol to the results and made a
+table of the enriched in growthcone biotypes.
+
+```{r add-biotypes}
+biotype_matches = match(rownames(res), conversions$ensembl_gene_id)
+res$biotype = conversions[biotype_matches,]$gene_biotype
+res$symbol = conversions[biotype_matches,]$gene_symbol
+knitr::kable(data.frame(table(subset(res, padj < 0.1 & log2FoldChange > 0)$biotype)))
+```
+
 ## Summary
 The results seem reasonable to me, being relatively enriched for RNA encoding
 ribosomal proteins makes a lot of sense for the growthcones. The data looks
@@ -671,129 +695,7 @@ reasonable in terms of quality, with the caveats I talked about above. The
 growthcone data is widely variable, and future experiments might do well
 to do more replicates to have more power.
 
-```{r DESeq-tables, results='asis'}
-for(i in seq(length(all_results))) {
-  cat(paste("Lowest adjusted p-value hits for", names(all_results)[i]))
-  out_df = as.data.frame(all_results[[i]])
-  print(knitr::kable(head(out_df)))
-  write.table(out_df, file=paste(names(all_results)[i], ".tsv", sep=""),
-                         quote=FALSE, sep="\t", row.names=TRUE, col.names=TRUE)
-  cat("\n")
-}
-```
-
-## Sailfish
-We've added some functionality to `bcbio-nextgen` to generate expression
-estimates from `sailfish`. There have been some papers reporting that
-this is a more accurate way to quantitate transcripts
-([this](http://genomebiology.com/2015/16/1/177) paper for example.
-We'll compare the results of the two approaches.
-
-```{r load-sailfish}
-sailfish_tidy_fn = "../combined.sf"
-sailfish = read_tsv(sailfish_tidy_fn)
-matches = match(sailfish$name, conversions$ensembl_transcript_id)
-sailfish$gene = conversions$ensembl_gene_id[matches]
-sailfish = sailfish[!is.na(sailfish$gene),]
-sailfish = sailfish %>%
-             dplyr:::select(gene, numreads, sample) %>%
-             group_by(gene, sample) %>%
-             summarize(numreads=sum(numreads)) %>%
-             mutate(numreads=round(numreads)) %>%
-             spread(sample, numreads)
-sailfish = as.data.frame(sailfish)
-rownames(sailfish) = sailfish$gene
-sailfish$gene = NULL
-```
-
-Let's see what the PCA looks like using the Sailfish counts.
-
-```{r reload-summarydata}
-summarydata = load_summarydata()
-```
-
-```{r pca-raw-sailfish}
-dds = DESeqDataSetFromMatrix(countData=sailfish, colData=summarydata, design=~Name)
-vst = varianceStabilizingTransformation(dds)
-pca = plotPCA(vst, intgroup=c("compartment"), return=TRUE)
-ggplot(pca, aes(PC1, PC2, color=group, label=name)) + geom_text(size=4) +
-    theme_bw() +
-    theme(panel.grid.major = element_line(size = .5, color = "grey"),
-          axis.text.x = element_text(angle=90))
-```
-
-We see a nicer PCA using the Sailfish counts, with the samples that we thought
-  looked like failures clustering off on their own. That is great news. We'll
-drop those samples and combine the technical replicates like before.
-
-```{r drop-bad-samples-sailfish}
-bad_samples = c("BC9", "BC14", "BC6", "growthcone_2014_1", "soma_2014_1")
-summarydata = subset(summarydata, !barcode_id %in% bad_samples)
-counts = sailfish[, colnames(sailfish) %in% rownames(summarydata)]
-summarydata = subset(summarydata, is.na(starting_material) || !starting_material == 50)
-counts = counts[, rownames(summarydata)]
-fcounts = counts
-fcounts$id = rownames(fcounts)
-melted = melt(fcounts)
-melted = merge(melted, summarydata, by.x="variable", by.y="Name")
-grouped = melted %>% group_by(id, barcode_id) %>% summarise(value=sum(value))
-combined = grouped %>% spread(barcode_id, value)
-combined = data.frame(combined)
-rownames(combined) = combined$id
-combined$id = NULL
-fsummary = summarydata
-fsummary = fsummary[, colnames(fsummary) != "Name"]
-rownames(fsummary) = NULL
-fsummary = fsummary[, c("barcode", "barcode_id", "compartment", "half_amplified", "sort_date")]
-fsummary = unique(fsummary)
-rownames(fsummary) = fsummary$barcode_id
-fsummary$Name = rownames(fsummary)
-counts = combined
-summarydata = fsummary
-dds = DESeqDataSetFromMatrix(countData=counts, colData=summarydata, design=~Name)
-vst = varianceStabilizingTransformation(dds)
-pca =plotPCA(vst, intgroup=c("compartment", "sort_date"), return=TRUE)
-ggplot(pca, aes(PC1, PC2, color=compartment, label=sort_date)) + geom_text(size=4) +
-    theme_bw() +
-    theme(panel.grid.major = element_line(size = .5, color = "grey"),
-        axis.text.x = element_text(angle=90))
-```
-
-We can see a strong separation by the second component with the growthcone
-vs. soma.
-
-Using the Sailfish counts we find broadly similar results.
-
-```{r sailfish-deseq}
-design = ~sort_date+compartment
-counts = counts[rowSums(counts>0)>1,]
-dds = DESeqDataSetFromMatrix(countData=counts, colData=summarydata, design = design)
-dds = DESeq(dds)
-
-all_results = handle_deseq2(dds, summarydata, condition)
-res_sf = data.frame(all_results[[1]])
-```
-
-```{r sailfish-vs-counts}
-up_sf = rownames(subset(res_sf, padj < 0.1 & log2FoldChange > 0))
-up_counts = rownames(subset(res, padj < 0.1 & log2FoldChange > 0))
-sf_comp = counts[rownames(original_counts),]
-original_comp = original_counts[rownames(sf_comp),]
-sf_comp = sf_comp[order(rownames(sf_comp)),order(colnames(sf_comp))]
-original_comp = original_comp[order(rownames(original_comp)),order(colnames(original_comp))]
-sf_comp = sf_comp[complete.cases(sf_comp),]
-original_comp = original_comp[complete.cases(original_comp),]
-
-sf_check = sf_comp[, rownames(subset(summarydata, compartment == "soma"))]
-original_check = original_comp[, rownames(subset(summarydata, compartment == "soma"))]
-```
-
-523 of the 788 genes called up in the growthcones by Sailfish are in the
-count-based set.
-
-```{r sf-vs-counts}
-qplot(as.vector(as.matrix(sf_check) + 1), as.vector(as.matrix(original_check)) + 1) +
- stat_binhex() + scale_x_log10() + scale_y_log10() + theme_bw() +
- scale_fill_gradient(name = "count", trans = "log") + xlab("sailfish counts") +
- ylab("featureCounts counts")
+```{r write-results}
+write.table(res, file="results_de.tsv", sep="\t", quote=FALSE,
+            row.names=TRUE, col.names=TRUE)
 ```
