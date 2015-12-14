@@ -648,23 +648,11 @@ a background.
 
 ![](images/final_DAG_file_1449889165.gif)
 
-I included four lists of genes
-that you can use with these tools. The first list is of genes that are expressed,
-which I definied as having at least 10 counts total across all of the samples. The
-second list is a list of all of the differentially expressed genes, using
-a FDR cutoff of 0.05. If you don't care about the direction of expression, you
-can load the DE list and then use the list of expressed genes as a background list
-for the enrichment tools. The two other lists are the DE list, but separated
-into up in growthcone or down in growthcone compared to the soma. You can use
-those lists similarly to look at genes specifically enriched or
-depleted from the growthcones. These are all Ensembl gene identifiers.
-
-Those differentially expressed files and the expressed files are
-tarred up [here](https://github.com/hbc/poulopoulos-growthcone-rnaseq/raw/master/growthcone/final/2015-11-14_growthcone/summary/poulopoulos-de-results.tar)
-
-## Previous results
+## Comparison with previous results
 We should hopefully see the new results with more replicates are
-similar to the previous results.
+similar to the previous results. I loaded in the DESeq2 results from the
+previous run and compared the overlap, focusing on what was encriched in
+the growthcones.
 
 ```{r previous-to-current}
 prev_results = read.table("deseq2_results_original.tsv", sep="\t", header=TRUE)
@@ -693,9 +681,194 @@ The results seem reasonable to me, being relatively enriched for RNA encoding
 ribosomal proteins makes a lot of sense for the growthcones. The data looks
 reasonable in terms of quality, with the caveats I talked about above. The
 growthcone data is widely variable, and future experiments might do well
-to do more replicates to have more power.
+to do more replicates to have more power. It might make sense to compare
+only the genes that are found in the growthcone to the soma and drop everything
+else from the analysis but I'll put up this report now and get feedback before
+doing anything else.
+
 
 ```{r write-results}
-write.table(res, file="results_de.tsv", sep="\t", quote=FALSE,
+write.table(res, file="growthcone vs soma.tsv", sep="\t", quote=FALSE,
             row.names=TRUE, col.names=TRUE)
+```
+
+## Sailfish
+We've added some functionality to `bcbio-nextgen` to generate expression
+estimates from `sailfish`. There have been some papers reporting that
+this is a more accurate way to quantitate transcripts
+([this](http://genomebiology.com/2015/16/1/177) paper for example.
+We'll compare the results of the two approaches.
+
+```{r load-sailfish}
+sailfish_tidy_fn = "../combined.sf"
+sailfish = read_tsv(sailfish_tidy_fn)
+matches = match(sailfish$name, conversions$ensembl_transcript_id)
+sailfish$gene = conversions$ensembl_gene_id[matches]
+sailfish = sailfish[!is.na(sailfish$gene),]
+sailfish = sailfish %>%
+             dplyr:::select(gene, numreads, sample) %>%
+             group_by(gene, sample) %>%
+             summarize(numreads=sum(numreads)) %>%
+             mutate(numreads=round(numreads)) %>%
+             spread(sample, numreads)
+sailfish = as.data.frame(sailfish)
+rownames(sailfish) = sailfish$gene
+sailfish$gene = NULL
+```
+
+Let's see what the PCA looks like using the Sailfish counts.
+
+```{r reload-summarydata}
+summarydata = load_summarydata()
+```
+
+```{r pca-raw-sailfish}
+dds = DESeqDataSetFromMatrix(countData=sailfish, colData=summarydata, design=~Name)
+vst = varianceStabilizingTransformation(dds)
+pca = plotPCA(vst, intgroup=c("compartment"), return=TRUE)
+ggplot(pca, aes(PC1, PC2, color=group, label=name)) + geom_text(size=4) +
+    theme_bw() +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+          axis.text.x = element_text(angle=90))
+```
+
+We see a nicer PCA using the Sailfish counts, with the samples that we thought
+  looked like failures clustering off on their own. That is great news. We'll
+drop those samples and combine the technical replicates like before.
+
+```{r drop-bad-samples-sailfish}
+bad_samples = c("BC9", "BC14", "BC6", "growthcone_2014_1", "soma_2014_1")
+summarydata = subset(summarydata, !barcode_id %in% bad_samples)
+counts = sailfish[, colnames(sailfish) %in% rownames(summarydata)]
+summarydata = subset(summarydata, is.na(starting_material) || !starting_material == 50)
+counts = counts[, rownames(summarydata)]
+fcounts = counts
+fcounts$id = rownames(fcounts)
+melted = melt(fcounts)
+melted = merge(melted, summarydata, by.x="variable", by.y="Name")
+grouped = melted %>% group_by(id, barcode_id) %>% summarise(value=sum(value))
+combined = grouped %>% spread(barcode_id, value)
+combined = data.frame(combined)
+rownames(combined) = combined$id
+combined$id = NULL
+fsummary = summarydata
+fsummary = fsummary[, colnames(fsummary) != "Name"]
+rownames(fsummary) = NULL
+fsummary = fsummary[, c("barcode", "barcode_id", "compartment", "half_amplified", "sort_date")]
+fsummary = unique(fsummary)
+rownames(fsummary) = fsummary$barcode_id
+fsummary$Name = rownames(fsummary)
+counts = combined
+summarydata = fsummary
+dds = DESeqDataSetFromMatrix(countData=counts, colData=summarydata, design=~Name)
+vst = varianceStabilizingTransformation(dds)
+pca =plotPCA(vst, intgroup=c("compartment", "sort_date"), return=TRUE)
+ggplot(pca, aes(PC1, PC2, color=compartment, label=sort_date)) + geom_text(size=4) +
+    theme_bw() +
+    theme(panel.grid.major = element_line(size = .5, color = "grey"),
+        axis.text.x = element_text(angle=90))
+```
+
+We can see a strong separation by the second component with the growthcone
+vs. soma.
+
+Using the Sailfish counts we find broadly similar results.
+
+```{r sailfish-deseq}
+design = ~sort_date+compartment
+counts = counts[rowSums(counts>0)>1,]
+dds = DESeqDataSetFromMatrix(countData=counts, colData=summarydata, design = design)
+dds = DESeq(dds)
+
+all_results = handle_deseq2(dds, summarydata, condition)
+res_sf = data.frame(all_results[[1]])
+```
+
+```{r sailfish-vs-counts}
+up_sf = rownames(subset(res_sf, padj < 0.1 & log2FoldChange > 0))
+up_counts = rownames(subset(res, padj < 0.1 & log2FoldChange > 0))
+
+qplot(res$baseMean, res_sf[rownames(res), "baseMean"]) + scale_x_log10() + scale_y_log10()
+
+library(scales)
+up_both = intersect(up_sf, up_counts)
+both = data.frame(counts=res[up_both,]$baseMean,
+                  counts_fc=res[up_both,]$log2FoldChange,
+                  sailfish=res_sf[up_both,]$baseMean,
+                  sailfish_fc=res_sf[up_both,]$log2FoldChange,
+                  result="in both")
+sf_only = data.frame(counts=res[only_sf,]$baseMean,
+                  counts_fc=res[only_sf,]$log2FoldChange,
+                  sailfish=res_sf[only_sf,]$baseMean,
+                  sailfish_fc=res_sf[only_sf,]$log2FoldChange,
+                  result="sailfish only")
+counts_only = data.frame(counts=res[only_counts,]$baseMean,
+                  counts_fc=res[only_counts,]$log2FoldChange,
+                  sailfish=res_sf[only_counts,]$baseMean,
+                  sailfish_fc=res_sf[only_counts,]$log2FoldChange,
+                  result="counts only")
+all = rbind(both, sf_only, counts_only)
+all$ratio = all$sailfish - all$counts
+ggplot(all, aes(counts, sailfish, color=result)) +
+    geom_point() +
+    scale_x_log10(labels=comma) +
+    scale_y_log10(labels=comma) +
+    xlab("featureCounts baseMean") +
+    ylab("sailfish baseMean") +
+    theme_bw()
+
+ggplot(all, aes(ratio, fill=result)) + geom_histogram() +
+    facet_wrap(~result) +
+#    scale_x_log10(labels=comma) +
+#    scale_y_log10(labels=comma) +
+    xlab("log2 sailfish/counts baseMean") +
+    theme_bw()
+
+ggplot(all, aes(counts_fc, sailfish_fc, color=result)) +
+    geom_point() +
+    scale_x_log10(labels=comma) +
+    scale_y_log10(labels=comma) +
+    xlab("featureCounts foldchange") +
+    ylab("sailfish foldchange") +
+    theme_bw()
+
+qplot(res[up_both,]$baseMean, res_sf[up_both, "baseMean"]) +
+scale_x_log10() + scale_y_log10()
+only_counts = up_counts[!up_counts %in% up_sf]
+only_sf = up_counts[!up_sf %in% up_counts]
+df = data.frame(id=union(up_sf, up_counts, up_both))
+df$counts = res[df$id, "baseMean"]
+df$sf = res_sf[df$id, "baseMean"]
+df$result = "both"
+df[up_both, "result"] = "both"
+df[only_counts, "result"] = "counts"
+df[rownames(df) %in% only_sf,]$result = "sailfish"
+ggplot(df, aes(counts, sf, color=result)) +
+    geom_point() +
+    scale_x_log10(labels=comma) +
+    scale_y_log10(labels=comma) +
+    xlab("featureCounts baseMean") +
+    ylab("sailfish baseMean") +
+    theme_bw()
+
+
+sf_comp = counts[rownames(original_counts),]
+original_comp = original_counts[rownames(sf_comp),]
+sf_comp = sf_comp[order(rownames(sf_comp)),order(colnames(sf_comp))]
+original_comp = original_comp[order(rownames(original_comp)),order(colnames(original_comp))]
+sf_comp = sf_comp[complete.cases(sf_comp),]
+original_comp = original_comp[complete.cases(original_comp),]
+
+sf_check = sf_comp[, rownames(subset(summarydata, compartment == "soma"))]
+original_check = original_comp[, rownames(subset(summarydata, compartment == "soma"))]
+```
+
+523 of the 788 genes called up in the growthcones by Sailfish are in the
+count-based set.
+
+```{r sf-vs-counts}
+qplot(as.vector(as.matrix(sf_check) + 1), as.vector(as.matrix(original_check)) + 1) +
+ stat_binhex() + scale_x_log10() + scale_y_log10() + theme_bw() +
+ scale_fill_gradient(name = "count", trans = "log") + xlab("sailfish counts") +
+ ylab("featureCounts counts")
 ```
