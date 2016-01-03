@@ -584,7 +584,11 @@ mouse = useMart(biomart = "ENSEMBL_MART_ENSEMBL",
                 dataset="mmusculus_gene_ensembl",
                 host = "jul2015.archive.ensembl.org")
 conversions = getBM(attributes=c("ensembl_gene_id", "ensembl_transcript_id",
-                    "mgi_symbol", "gene_biotype"), mart=mouse)
+                    "mgi_symbol", "gene_biotype", "transcript_length"),
+                    mart=mouse)
+conversions = conversions %>%
+                group_by(ensembl_gene_id) %>%
+                mutate(length=max(transcript_length))
 matches = match(rownames(res), conversions$ensembl_gene_id)
 res$symbol = conversions$mgi_symbol[matches]
 soma_samples = c("BC12", "BC16", "BC8", "soma_2014_2", "soma_2014_3")
@@ -672,7 +676,8 @@ table of the enriched in growthcone biotypes.
 ```{r add-biotypes}
 biotype_matches = match(rownames(res), conversions$ensembl_gene_id)
 res$biotype = conversions[biotype_matches,]$gene_biotype
-res$symbol = conversions[biotype_matches,]$gene_symbol
+res$symbol = conversions[biotype_matches,]$mgi_symbol
+res$length = conversions[biotype_matches,]$length
 knitr::kable(data.frame(table(subset(res, padj < 0.1 & log2FoldChange > 0)$biotype)))
 ```
 
@@ -686,6 +691,12 @@ only the genes that are found in the growthcone to the soma and drop everything
 else from the analysis but I'll put up this report now and get feedback before
 doing anything else.
 
+## soma-growthcone plot
+```{r soma-growthcone}
+fitted.common.scale = t( t( assays(dds)[["mu"]] ) / sizeFactors(dds) )
+melted = melt(fitted.common.scale)
+melted = merge(melted, summarydata, by.x="X2", by.y="barcode_id")
+```
 
 ```{r write-results}
 write.table(res, file="growthcone vs soma.tsv", sep="\t", quote=FALSE,
@@ -784,91 +795,91 @@ all_results = handle_deseq2(dds, summarydata, condition)
 res_sf = data.frame(all_results[[1]])
 ```
 
-```{r sailfish-vs-counts}
-up_sf = rownames(subset(res_sf, padj < 0.1 & log2FoldChange > 0))
-up_counts = rownames(subset(res, padj < 0.1 & log2FoldChange > 0))
+## ```{r sailfish-vs-counts}
+## up_sf = rownames(subset(res_sf, padj < 0.1 & log2FoldChange > 0))
+## up_counts = rownames(subset(res, padj < 0.1 & log2FoldChange > 0))
 
-qplot(res$baseMean, res_sf[rownames(res), "baseMean"]) + scale_x_log10() + scale_y_log10()
+## qplot(res$baseMean, res_sf[rownames(res), "baseMean"]) + scale_x_log10() + scale_y_log10()
 
-library(scales)
-up_both = intersect(up_sf, up_counts)
-both = data.frame(counts=res[up_both,]$baseMean,
-                  counts_fc=res[up_both,]$log2FoldChange,
-                  sailfish=res_sf[up_both,]$baseMean,
-                  sailfish_fc=res_sf[up_both,]$log2FoldChange,
-                  result="in both")
-sf_only = data.frame(counts=res[only_sf,]$baseMean,
-                  counts_fc=res[only_sf,]$log2FoldChange,
-                  sailfish=res_sf[only_sf,]$baseMean,
-                  sailfish_fc=res_sf[only_sf,]$log2FoldChange,
-                  result="sailfish only")
-counts_only = data.frame(counts=res[only_counts,]$baseMean,
-                  counts_fc=res[only_counts,]$log2FoldChange,
-                  sailfish=res_sf[only_counts,]$baseMean,
-                  sailfish_fc=res_sf[only_counts,]$log2FoldChange,
-                  result="counts only")
-all = rbind(both, sf_only, counts_only)
-all$ratio = all$sailfish - all$counts
-ggplot(all, aes(counts, sailfish, color=result)) +
-    geom_point() +
-    scale_x_log10(labels=comma) +
-    scale_y_log10(labels=comma) +
-    xlab("featureCounts baseMean") +
-    ylab("sailfish baseMean") +
-    theme_bw()
+## library(scales)
+## up_both = intersect(up_sf, up_counts)
+## both = data.frame(counts=res[up_both,]$baseMean,
+##                   counts_fc=res[up_both,]$log2FoldChange,
+##                   sailfish=res_sf[up_both,]$baseMean,
+##                   sailfish_fc=res_sf[up_both,]$log2FoldChange,
+##                   result="in both")
+## sf_only = data.frame(counts=res[only_sf,]$baseMean,
+##                   counts_fc=res[only_sf,]$log2FoldChange,
+##                   sailfish=res_sf[only_sf,]$baseMean,
+##                   sailfish_fc=res_sf[only_sf,]$log2FoldChange,
+##                   result="sailfish only")
+## counts_only = data.frame(counts=res[only_counts,]$baseMean,
+##                   counts_fc=res[only_counts,]$log2FoldChange,
+##                   sailfish=res_sf[only_counts,]$baseMean,
+##                   sailfish_fc=res_sf[only_counts,]$log2FoldChange,
+##                   result="counts only")
+## all = rbind(both, sf_only, counts_only)
+## all$ratio = all$sailfish - all$counts
+## ggplot(all, aes(counts, sailfish, color=result)) +
+##     geom_point() +
+##     scale_x_log10(labels=comma) +
+##     scale_y_log10(labels=comma) +
+##     xlab("featureCounts baseMean") +
+##     ylab("sailfish baseMean") +
+##     theme_bw()
 
-ggplot(all, aes(ratio, fill=result)) + geom_histogram() +
-    facet_wrap(~result) +
-#    scale_x_log10(labels=comma) +
-#    scale_y_log10(labels=comma) +
-    xlab("log2 sailfish/counts baseMean") +
-    theme_bw()
+## ggplot(all, aes(ratio, fill=result)) + geom_histogram() +
+##     facet_wrap(~result) +
+## #    scale_x_log10(labels=comma) +
+## #    scale_y_log10(labels=comma) +
+##     xlab("log2 sailfish/counts baseMean") +
+##     theme_bw()
 
-ggplot(all, aes(counts_fc, sailfish_fc, color=result)) +
-    geom_point() +
-    scale_x_log10(labels=comma) +
-    scale_y_log10(labels=comma) +
-    xlab("featureCounts foldchange") +
-    ylab("sailfish foldchange") +
-    theme_bw()
+## ggplot(all, aes(counts_fc, sailfish_fc, color=result)) +
+##     geom_point() +
+##     scale_x_log10(labels=comma) +
+##     scale_y_log10(labels=comma) +
+##     xlab("featureCounts foldchange") +
+##     ylab("sailfish foldchange") +
+##     theme_bw()
 
-qplot(res[up_both,]$baseMean, res_sf[up_both, "baseMean"]) +
-scale_x_log10() + scale_y_log10()
-only_counts = up_counts[!up_counts %in% up_sf]
-only_sf = up_counts[!up_sf %in% up_counts]
-df = data.frame(id=union(up_sf, up_counts, up_both))
-df$counts = res[df$id, "baseMean"]
-df$sf = res_sf[df$id, "baseMean"]
-df$result = "both"
-df[up_both, "result"] = "both"
-df[only_counts, "result"] = "counts"
-df[rownames(df) %in% only_sf,]$result = "sailfish"
-ggplot(df, aes(counts, sf, color=result)) +
-    geom_point() +
-    scale_x_log10(labels=comma) +
-    scale_y_log10(labels=comma) +
-    xlab("featureCounts baseMean") +
-    ylab("sailfish baseMean") +
-    theme_bw()
+## qplot(res[up_both,]$baseMean, res_sf[up_both, "baseMean"]) +
+## scale_x_log10() + scale_y_log10()
+## only_counts = up_counts[!up_counts %in% up_sf]
+## only_sf = up_counts[!up_sf %in% up_counts]
+## df = data.frame(id=union(up_sf, up_counts, up_both))
+## df$counts = res[df$id, "baseMean"]
+## df$sf = res_sf[df$id, "baseMean"]
+## df$result = "both"
+## df[up_both, "result"] = "both"
+## df[only_counts, "result"] = "counts"
+## df[rownames(df) %in% only_sf,]$result = "sailfish"
+## ggplot(df, aes(counts, sf, color=result)) +
+##     geom_point() +
+##     scale_x_log10(labels=comma) +
+##     scale_y_log10(labels=comma) +
+##     xlab("featureCounts baseMean") +
+##     ylab("sailfish baseMean") +
+##     theme_bw()
 
 
-sf_comp = counts[rownames(original_counts),]
-original_comp = original_counts[rownames(sf_comp),]
-sf_comp = sf_comp[order(rownames(sf_comp)),order(colnames(sf_comp))]
-original_comp = original_comp[order(rownames(original_comp)),order(colnames(original_comp))]
-sf_comp = sf_comp[complete.cases(sf_comp),]
-original_comp = original_comp[complete.cases(original_comp),]
+## sf_comp = counts[rownames(original_counts),]
+## original_comp = original_counts[rownames(sf_comp),]
+## sf_comp = sf_comp[order(rownames(sf_comp)),order(colnames(sf_comp))]
+## original_comp = original_comp[order(rownames(original_comp)),order(colnames(original_comp))]
+## sf_comp = sf_comp[complete.cases(sf_comp),]
+## original_comp = original_comp[complete.cases(original_comp),]
 
-sf_check = sf_comp[, rownames(subset(summarydata, compartment == "soma"))]
-original_check = original_comp[, rownames(subset(summarydata, compartment == "soma"))]
-```
+## sf_check = sf_comp[, rownames(subset(summarydata, compartment == "soma"))]
+## original_check = original_comp[, rownames(subset(summarydata, compartment == "soma"))]
+## ```
 
-523 of the 788 genes called up in the growthcones by Sailfish are in the
-count-based set.
+## 523 of the 788 genes called up in the growthcones by Sailfish are in the
+## count-based set.
 
-```{r sf-vs-counts}
-qplot(as.vector(as.matrix(sf_check) + 1), as.vector(as.matrix(original_check)) + 1) +
- stat_binhex() + scale_x_log10() + scale_y_log10() + theme_bw() +
- scale_fill_gradient(name = "count", trans = "log") + xlab("sailfish counts") +
- ylab("featureCounts counts")
-```
+## ```{r sf-vs-counts}
+## qplot(as.vector(as.matrix(sf_check) + 1), as.vector(as.matrix(original_check)) + 1) +
+##  stat_binhex() + scale_x_log10() + scale_y_log10() + theme_bw() +
+##  scale_fill_gradient(name = "count", trans = "log") + xlab("sailfish counts") +
+##  ylab("featureCounts counts")
+## ```
